@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'output.css' %}" rel="stylesheet">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+    <div class="flex flex-col min-h-screen overflow-y-auto overflow-x-clip">
+        <header class="bg-white h-fit border-b-[1px] border-gray-400 px-4 md:px-0">
+            <div class="container bg-transparent flex items-center justify-between h-[100%] mx-auto py-4">
+                <div class="flex justify-between">
+                    <a href="/">
+                        <h1 class="text-black text-4xl font-semibold pr-4">
+                            <span class="text-black">MegaRes</span>
+                        </h1>
+                    </a>
+                    <ul class="list-none md:flex w-full items-center hidden">
+                        <li>
+                            <a href="/contact" class="hover:underline py-2 px-5 text-black rounded-md text-sm">Contact</a>
+                        </li>
+                        <li>
+                            <a href="/about" class="hover:underline py-2 px-5 text-black rounded-md text-sm">About</a>
+                        </li>
+                    </ul>
+                </div>
+                <nav class="hidden sm:inline-block">
+                    <a href="/login" class="py-3 px-5 bg-gray-300 rounded-xl text-black">Log in</a>
+                    <a href="/register" class="py-3 px-5 bg-blue-600 rounded-xl text-white font-bold">Sign up</a>
+                </nav>
+            </div>
+        </header>
+        {% block content %}{% endblock %}
+        <footer class="bg-white max-h-fit border-t-[1px] border-gray-400 px-4 md:px-0">
+            <div class="container flex flex-col justify-center h-full bg-transparent py-5 items-center mx-auto md:flex-row-reverse md:py-2 md:justify-between
+                        ">
+                <p class="text-black hover:*:underline text-center mb-3 *:px-4">
+                    <a href="/terms-of-use">
+                        Terms of use
+                    </a>
+                    <a href="/privacy-policy">
+                        Privacy Policy
+                    </a>
+                    <a href="/help">
+                        Help
+                    </a>
+                </p>
+                <div class="md:h-[80%] flex flex-col items-center">
+                    <p class="text-black text-center">&copy; 2024 &ndash; 2025 Megares ltd. All rights reserved</p>
+                    <address class="text-gray-400 not-italic text-center">Lorem Ipsum, 50, Office dolor, Sit, Amet
+                    </address>
+                </div>
+            </div>
+        </footer>
+    </div>
+    {% block script %}{% endblock %}
+</body>
+
+</html>

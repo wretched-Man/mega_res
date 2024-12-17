@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- FILE TITLE -->
+{% block title %}Superres{% endblock %}
+
+<!-- JAVASCRIPT FILE -->
+<!-- {% block script %}
+<script src="{% static 'index.js' %}"></script>
+{% endblock %} -->
+
+<!-- MAIN CONTENT -->
+{% block content %}
+<main id="body-main" class="bg-white mx-auto flex-1">
+    <div class="container bg-transparent mx-auto px-4 py-10 flex flex-col justify-between items-center h-full">
+        <hgroup class="mt-10 mb-10">
+            <h1 class="text-center text-black h-fit text-4xl sm:text-5xl lg:text-7xl font-black pb-5 w-full overflow-wrap">Online Image Upscaler</h1>
+            <h2 class="text-center text-black text-lg sm:text-xl lg:text-2xl font-extralight w-[42ch] sm:w-[55ch] mx-auto">
+                Instantly enhance your images, bringing out superior clarity and precision in every detail.
+            </h2>
+        </hgroup>
+        <section class="flex flex-col justify-center">
+            <form class="text-black max-w-max mx-auto text-center" action="{% url 'upload-image' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form }}
+                <button type="submit" class="inline-block my-5 py-3 px-5 bg-blue-600 rounded-xl text-white ">Upload Image</button>
+            </form>
+        </section>
+    </div>
+</main>
+{% endblock %}

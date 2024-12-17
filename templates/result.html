@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- FILE TITLE -->
+{% block title %}
+Result Image
+{% endblock %}
+
+<!-- JAVASCRIPT FILE -->
+{% block script %}
+<script data-taskid="{{ task_id }}">
+    const api = "http://localhost:8000"
+    const data = document.currentScript.dataset;
+    const task_id = data.taskid;
+
+    // Query the backend to know whether the task is ready
+
+    const QueryResult = async (id) => {
+        const res = await fetch(`${api}/result/${id}`)
+
+        const data = await res.json()
+        const taskStatus = data.status;
+        if (taskStatus === 'SUCCESS' || taskStatus === 'FAILURE') {
+            document.getElementById('loading_screen').classList.add('hidden')
+            if ('image_url' in data.result){
+                const img = document.createElement('img')
+                img.classList.add('w-full')
+                img.src = data.result.image_url
+                document.getElementById('result_container').appendChild(img)
+            }
+            else {
+                const error_object = document.createElement('p')
+                error_object.innerText = data.results.error
+                document.getElementById('result_container').appendChild(error_object)
+            }
+            return
+        }
+
+        setTimeout(() => {
+            QueryResult(task_id)
+        }, 5000)
+    }
+
+    QueryResult(task_id)
+</script>
+{% endblock %}
+
+{% block content %}
+<main class="bg-white flex-1 flex justify-center px-4 sm:px-0 lg:py-4">
+    <div id="result_container" class="container bg-transparent mx-auto min-h-full flex justify-center items-center">
+        <h1 id="loading_screen"
+            class="text-center text-black h-fit text-4xl sm:text-5xl lg:text-7xl font-black py-5 w-full overflow-wrap">
+            Loading...
+        </h1>
+    </div>
+</main>
+{% endblock %}
